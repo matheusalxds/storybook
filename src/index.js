@@ -1,2 +1,6 @@
 // UI
-export Button from './components/atom/button/Button';
+import Button from './components/atom/button/Button';
+
+export {
+  Button
+}
