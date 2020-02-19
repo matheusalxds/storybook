@@ -19,7 +19,7 @@ jobs:
     steps:
       - checkout
 
-      - run: rm -rf /home/circleci/repo/node_modules
+      - run: rm -rf ~/node_modules
 
       # Download and cache dependencies
       - restore_cache:
