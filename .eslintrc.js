@@ -2,10 +2,13 @@ module.exports = {
   env: {
     browser: true,
     es6: true,
+    jest: true,
   },
   extends: [
     'plugin:react/recommended',
     'airbnb',
+    'prettier',
+    'plugin:prettier/recommended',
   ],
   globals: {
     Atomics: 'readonly',
@@ -27,5 +30,7 @@ module.exports = {
     'react/button-has-type': 0,
     'no-underscore-dangle': 0,
     'import/no-extraneous-dependencies': 0,
+    'max-len': ['error', 120],
+    'prettier/prettier': ['error', { 'singleQuote': true }],
   },
 };
