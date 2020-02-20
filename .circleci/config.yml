@@ -1,60 +1,67 @@
-version: 2
-
-defaults: &defaults
-  working_directory: ~/repo
-  docker:
-    - image: circleci/node:12.9.1-browsers
-
+version: 2.1
 jobs:
-  test:
-    <<: *defaults
+  build:
+    docker:
+      - image: circleci/node:12.9.1-browsers
+
+    working_directory: ~/repo
+
     steps:
       - checkout
 
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: yarn install
-      - run:
-          name: Run tests
-          command: yarn test
+      - run: npm install
 
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
+      # run tests!
+      - run: npm test
+
+      # store test results
+      - store_test_results:
+          path: test_results
+
+      # store code coverage
       - persist_to_workspace:
           root: ~/repo
           paths: .
+
   deploy:
-    <<: *defaults
+    docker:
+      - image: circleci/node:latest
+
+    working_directory: ~/repo
+
     steps:
       - attach_workspace:
           at: ~/repo
       - run:
-          name: Authenticate with registry
+          name: Authenticate with NPM
           command: echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > ~/repo/.npmrc
       - run:
           name: Publish package
-          command: npm publish
+          command: npm publish --access public
 
 workflows:
   version: 2
-  test-deploy:
+  build-and-publish:
     jobs:
-      - test:
+      - build:
           filters:
             tags:
-              only: /^v.*/
-      - deploy:
+              only: /.*/
+      - publish:
           requires:
-            - test
+            - build
           filters:
-            tags:
-              only: /^v.*/
             branches:
               ignore: /.*/
+            tags:
+              only: /^v.*/
