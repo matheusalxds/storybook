@@ -50,8 +50,8 @@ commands:
 
   run-checkout:
     working_directory: ~/repo
-      steps:
-        - checkout
+    steps:
+      - checkout
   run-all:
     steps:
       - restore_cache:
