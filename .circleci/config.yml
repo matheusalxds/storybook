@@ -48,9 +48,12 @@ commands:
           name: Publish package
           command: npm publish --access public
 
+  run-checkout:
+    working_directory: ~/repo
+      steps:
+        - checkout
   run-all:
     steps:
-      - checkout
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
@@ -71,6 +74,7 @@ jobs:
     docker:
       - image: circleci/node:12.9.1-browsers
     steps:
+      - run-checkout
       - run-all
 workflows:
   node:
