@@ -32,6 +32,11 @@ commands:
           key: v1-dependencies-{{ checksum "package.json" }}
           paths:
             - node_modules
+  persist-to-workspace:
+    steps:
+      - persist_to_workspace:
+          root: ~/repo
+          paths: .
   deploy:
     steps:
       - attach_workspace:
@@ -55,6 +60,7 @@ commands:
       - lint
       - size
       - save-cache
+      - persist-to-workspace
   run-deploy:
     steps:
       - build
@@ -66,7 +72,6 @@ jobs:
       - image: circleci/node:12.9.1-browsers
     steps:
       - run-all
-      - run-deploy
 workflows:
   node:
     jobs:
