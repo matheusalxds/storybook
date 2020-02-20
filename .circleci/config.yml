@@ -40,3 +40,15 @@ commands:
       - size
       - install
       - save-cache
+
+jobs:
+  v12:
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:12.9.1-browsers
+    steps:
+      - run-all
+workflow:
+  node:
+    jobs:
+      - v12
