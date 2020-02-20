@@ -73,7 +73,7 @@ jobs:
     steps:
       - run-all
 workflows:
-  working_directory: ~/repo
   node:
     jobs:
+      working_directory: ~/repo
       - v12
