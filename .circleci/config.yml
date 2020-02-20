@@ -32,6 +32,16 @@ commands:
           key: v1-dependencies-{{ checksum "package.json" }}
           paths:
             - node_modules
+  deploy:
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > ~/repo/.npmrc
+      - run:
+          name: Publish package
+          command: npm publish
 
   run-all:
     steps:
@@ -45,6 +55,9 @@ commands:
       - lint
       - size
       - save-cache
+  run-deploy:
+    steps:
+      - deploy
 
 jobs:
   v12:
@@ -52,6 +65,7 @@ jobs:
       - image: circleci/node:12.9.1-browsers
     steps:
       - run-all
+      - run-deploy
 workflows:
   node:
     jobs:
