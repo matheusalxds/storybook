@@ -11,6 +11,11 @@ commands:
       - run:
           name: Lint
           command: yarn lint
+  size:
+    steps:
+      - run:
+          name: Size
+          command: yarn size
   build:
     steps:
       - run:
