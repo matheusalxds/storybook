@@ -33,6 +33,10 @@ commands:
           paths:
             - node_modules
   deploy:
+    docker:
+      - image: circleci/node:latest
+
+      working_directory: ~/repo
     steps:
       - attach_workspace:
           at: ~/repo
