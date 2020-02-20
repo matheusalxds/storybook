@@ -48,7 +48,7 @@ jobs:
       - image: circleci/node:12.9.1-browsers
     steps:
       - run-all
-workflow:
+workflows:
   node:
     jobs:
       - v12
