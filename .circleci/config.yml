@@ -67,14 +67,13 @@ commands:
       - deploy
 
 jobs:
-  working_directory: ~/repo
-
   v12:
     docker:
       - image: circleci/node:12.9.1-browsers
     steps:
       - run-all
 workflows:
+  working_directory: ~/repo
   node:
     jobs:
       - v12
