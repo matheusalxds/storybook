@@ -45,7 +45,7 @@ commands:
           command: echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > ~/repo/.npmrc
       - run:
           name: Publish package
-          command: npm publish
+          command: npm publish --access public
 
   run-all:
     steps:
@@ -61,6 +61,7 @@ commands:
       - save-cache
   run-deploy:
     steps:
+      - build
       - deploy
 
 jobs:
