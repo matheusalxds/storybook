@@ -46,7 +46,7 @@ commands:
           command: echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > ~/repo/dist/.npmrc
       - run:
           name: Move to dist folder
-          command: cd ./dist
+          command: cd ~/repo/dist
       - run:
           name: Publish package
           command: npm publish --access public
