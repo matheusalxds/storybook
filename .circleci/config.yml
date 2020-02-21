@@ -11,6 +11,11 @@ commands:
       - run:
           name: Lint
           command: yarn lint
+  size:
+    steps:
+      - run:
+          name: Size
+          command: yarn size
   build:
     steps:
       - run:
@@ -27,6 +32,24 @@ commands:
           key: v1-dependencies-{{ checksum "package.json" }}
           paths:
             - node_modules
+  persist-to-workspace:
+    steps:
+      - persist_to_workspace:
+          root: ~/repo
+          paths: .
+  deploy:
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > ~/repo/dist/.npmrc
+      - run:
+          name: Move to dist folder
+          command: cd ./dist
+      - run:
+          name: Publish package
+          command: npm publish --access public
 
   run-all:
     steps:
@@ -36,19 +59,25 @@ commands:
             - v1-dependencies-{{ checksum "package.json" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
+      - install
       - lint
       - size
-      - install
       - save-cache
+      - persist-to-workspace
+  run-deploy:
+    steps:
+      - build
+      - deploy
 
 jobs:
   v12:
     docker:
-      # specify the version you desire here
       - image: circleci/node:12.9.1-browsers
+    working_directory: ~/repo
     steps:
       - run-all
-workflow:
+      - run-deploy
+workflows:
   node:
     jobs:
       - v12
