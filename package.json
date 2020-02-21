@@ -1,6 +1,6 @@
 {
   "name": "my-storybook-test",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "main": "dist/index.js",
   "browser": "dist/index.umd.js",
   "module": "dist/index.es.js",
