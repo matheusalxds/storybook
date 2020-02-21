@@ -17,6 +17,9 @@ commands:
           name: Size
           command: yarn size
   build:
+    branches:
+      only:
+        - master
     steps:
       - run:
           name: Build packages
@@ -74,9 +77,6 @@ jobs:
     docker:
       - image: circleci/node:12.9.1-browsers
     working_directory: ~/repo
-    branches:
-      only:
-        - master
     steps:
       - run-all
       - run-deploy
