@@ -17,9 +17,6 @@ commands:
           name: Size
           command: yarn size
   build:
-    branches:
-      only:
-        - master
     steps:
       - run:
           name: Build packages
