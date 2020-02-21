@@ -11,11 +11,6 @@ commands:
       - run:
           name: Lint
           command: yarn lint
-  size:
-    steps:
-      - run:
-          name: Size
-          command: yarn size
   build:
     steps:
       - run:
@@ -61,7 +56,6 @@ commands:
             - v1-dependencies-
       - install
       - lint
-      - size
       - save-cache
       - persist-to-workspace
   run-deploy:

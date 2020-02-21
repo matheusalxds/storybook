@@ -19,11 +19,6 @@
       "enzyme-to-json/serializer"
     ]
   },
-  "size-limit": [
-    {
-      "path": "build/static/**/*.{js,css,svg,woff,woff2,png,ttf,html}"
-    }
-  ],
   "scripts": {
     "start": "react-scripts start",
     "build": "rollup -c",
@@ -32,8 +27,7 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
-    "lint": "./node_modules/.bin/eslint src/*.js --quiet",
-    "size": "yarn build && size-limit"
+    "lint": "./node_modules/.bin/eslint src/*.js --quiet"
   },
   "eslintConfig": {
     "extends": "react-app"
