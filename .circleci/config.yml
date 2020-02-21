@@ -45,8 +45,8 @@ commands:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > ~/repo/.npmrc
       - run:
-          name: Check .npmrc
-          command: cat ~/repo/.npmrc
+          name: Move to dist folder
+          command: cd ./dist
       - run:
           name: Publish package
           command: npm publish --access public
