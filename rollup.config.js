@@ -3,7 +3,6 @@ import commonjs from 'rollup-plugin-commonjs';
 import postcss from 'rollup-plugin-postcss';
 import resolve from 'rollup-plugin-node-resolve';
 import external from 'rollup-plugin-peer-deps-external';
-import copy from 'rollup-plugin-copy-glob';
 import { terser } from 'rollup-plugin-terser';
 import { uglify } from 'rollup-plugin-uglify';
 
@@ -35,9 +34,6 @@ export default [
       external(),
       resolve(),
       commonjs(),
-      copy([{ files: 'src/styles/**/*.*', dest: 'dist/styles' }], {
-        verbose: true
-      })
     ]
   },
   {
